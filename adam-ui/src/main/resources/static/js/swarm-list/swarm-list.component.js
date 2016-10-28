@@ -20,15 +20,7 @@ angular
         });
         speechRecognition.start();
         self.swarms = Swarm.swarms();
-        
-        var initSocket = function() {
-          var client = new SockJS("http://localhost:8080/adam-websocket");
-          self.stomp = Stomp.over(client);
-          self.stomp.connect({}, function() {
-            self.stomp.subscribe('/topic/swarm/events', console.log);  
-          });
-        };
-        initSocket();
+
         var findId = function(words) {
           var parts = words.split(' ');
           var candidates = {};

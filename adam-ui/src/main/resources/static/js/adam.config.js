@@ -1,4 +1,4 @@
-angular.module('adam')
+angular.module('adam', ['core'])
   .config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
       $locationProvider.hashPrefix('!');
@@ -15,4 +15,11 @@ angular.module('adam')
       }).
       otherwise('/swarms');
     }
-  ]);
+  ])
+  .run(['Notify', function(Notify) {
+    Notify.connect('http://localhost:8080/adam-websocket', function() {
+      Notify.subscribe('/topic/swarm/events', function(event) {
+        console.log(event);
+      });
+    });
+  }]);
