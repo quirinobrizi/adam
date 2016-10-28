@@ -21,11 +21,10 @@ angular.module('adam')
       Notify.subscribe('/topic/swarm/events', function(event) {
         if(event) {
           var message = angular.fromJson(event.body)
-          if("START" === action) {
-            growl.info(message.source + "    " + message.action);
-          } else if("STOP" === action) {
-            growl.warn(message.source + "    " + message.action); 
+          if("UNKNOWN" === action) {
+            return;
           }
+          growl.warn(message.source + "    " + message.action); 
         }
       });
     });
