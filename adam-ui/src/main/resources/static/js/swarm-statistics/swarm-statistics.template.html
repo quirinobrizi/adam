@@ -1,0 +1,30 @@
+<div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title"><a href="#!/swarms/{{swarmId}}/containers">Containers (#)</a></div>
+		<div class="single-number-widget-value">{{statistics.containers}}</div>
+	</div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title"><a href="#!/swarms/{{swarmId}}/containers">Running Containers (#)</a></div>
+		<div class="single-number-widget-value">{{statistics.containersRunning}}</a><a href="#!/swarms/{{swarmId}}/containers"></div>
+	</div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title"><a href="#!/swarms/{{swarmId}}/containers">Stopped Containers (#)</a></div>
+		<div class="single-number-widget-value">{{statistics.containersStopped}}</div>
+	</div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title"><a href="#!/swarms/{{swarmId}}/containers">Paused Containers (#)</a></div>
+		<div class="single-number-widget-value">{{statistics.containersPaused}}</div>
+	</div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title"><a href="#!/swarms/{{swarmId}}/nodes">Nodes (#)</a></div>
+		<div class="single-number-widget-value">{{statistics.numberOfNodes}}</div>
+	</div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title">CPUs (#)</div>
+		<div class="single-number-widget-value">{{statistics.ncpu}}</div>
+	</div>
+	<div class="inline-block single-number-widget">
+		<div class="single-number-widget-title">Total Memory (GB)</div>
+		<div class="single-number-widget-value">{{formatBytes(statistics.totalMemory, 1)}}</div>
+	</div>
+</div>

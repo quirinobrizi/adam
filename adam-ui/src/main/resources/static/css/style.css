@@ -1,0 +1,90 @@
+body {
+  padding-top: 100px;
+}
+
+h1 {
+  border-bottom: 1px solid gray;
+  margin-top: 0;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+ul {
+	list-style: none;
+}
+
+ul li{
+	clear: both;
+  height: 115px;
+}
+
+.thumb {
+  float: left;
+  height: 100px;
+  margin: 0 1em 1.5em 0;
+  padding-bottom: 1em;
+  width: 100px;
+}
+
+.margin-top-3em {
+	margin-top: 3em;
+}
+
+.swarm-text {
+  font-weight: bolder;
+  text-decoration: none;
+  display: inline-block;
+  color: #337ab7;
+}
+
+.text-white {
+	color: #ffffff;
+}
+
+.status-healthy {
+	background-color: green;
+}
+.status-running {
+	background-color: green;
+}
+.status-unhealthy {
+	background-color: red;	
+}
+
+.navbar-brand {float:none;}
+.navbar-brand img {
+	height: 40px;
+	width: auto;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.single-number-widget {
+    min-height: 80px;
+    width: 200px;
+    border: black solid 1px;
+    font-size: 0.8em;
+}
+
+.single-number-widget-title {
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  background-color: antiquewhite;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.single-number-widget-value {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 3em;
+}

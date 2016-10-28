@@ -1,0 +1,26 @@
+<div class="container-fluid">
+	<h1>Nodes</h1>
+	<div class="row">
+		<div class="col-md-2">
+			<p>
+				Search:
+				<input ng-model="$ctrl.query">
+			</p>
+		</div>
+		<div class="col-md-10">
+			<div class="pull-right">
+				<a class="btn btn-secondary" href="#!/swarms/{{$ctrl.swarmId}}/containers">Containers</a>
+			</div>
+			<ul>
+				<li ng-repeat="node in $ctrl.nodes | filter:$ctrl.query"  class="thumbnail">
+					<a href="#!/swarms/{{$ctrl.id}}" class="thumb">
+						<img ng-src="images/node.png" alt="{{$ctrl.id}}}" />
+					</a>
+					<span class="swarm-text text-white badge status-{{node.status}}">{{node.name}}</span>
+					<hr/>
+					<node-statistics ng-swarm="{{$ctrl.swarmId}}" ng-running-containers="{{node.runningContainers}}" ng-docker-version="{{node.daemonVersion}}"/>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
