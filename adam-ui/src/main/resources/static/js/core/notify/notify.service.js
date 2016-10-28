@@ -11,7 +11,7 @@ angular
             connected = true;
             callback();
           });
-        	stomp.onclose = reconnect;
+        	stomp.onclose = this.reconnect;
         } else {
           callback();
         }

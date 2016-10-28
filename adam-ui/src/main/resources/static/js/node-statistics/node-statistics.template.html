@@ -1,10 +1,14 @@
 <div class="row">
-	<div class="col-md-2">
-		<div class="single-number-widget-title">Docker Version</div>
+	<div class="col-md-1 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
+			Docker Version
+		</div>
 		<div class="single-number-widget-value">{{dockerVersion}}</div>
 	</div>
-	<div class="col-md-2">
-		<div class="single-number-widget-title"><a href="#!/swarms/{{swarmId}}/containers">Running Containers (#)</a></div>
-		<div class="single-number-widget-value">{{runningContainers}}</a><a href="#!/swarms/{{swarmId}}/containers"></div>
+	<div class="col-md-1 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
+			<a href="#!/swarms/{{swarmId}}/containers">Running Containers (#)</a>
+		</div>
+		<div class="single-number-widget-value">{{runningContainers}}</div>
 	</div>
 </div>

@@ -14,4 +14,4 @@
  * limitations under the License.
  *******************************************************************************/
 angular
-  .module('node.statistics', ['core.swarm']);
+  .module('node.statistics', ['ngFitText','core.swarm']);

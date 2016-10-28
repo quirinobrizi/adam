@@ -12,17 +12,18 @@
 				<a class="btn btn-secondary" href="#!/swarms/{{$ctrl.swarmId}}/nodes">Nodes</a>
 			</div>
 			<ul>
-				<li ng-repeat="container in $ctrl.containers | filter:$ctrl.query" ng-if="container.image.indexOf('swarm') === -1" class="thumbnail" style="min-height: 230px">
-					<a href="#!/swarms/{{$ctrl.swarmId}}" class="thumb">
-						<img ng-src="images/container.png" alt="{{container.names[0]}}}" />
-					</a>
-					<span class="swarm-text text-white badge status-{{container.status}}">{{container.names[0]}}</span>
-					<span class="btn-group-sm pull-right" role="group">
-						<button type="button" class="btn btn-secondary" ng-click="$ctrl.doInContainer($ctrl.swarmId, container.id, 'start')">Start</button>
-						<button type="button" class="btn btn-secondary" ng-click="$ctrl.doInContainer($ctrl.swarmId, container.id, 'stop')">Stop</button>
-						<button type="button" class="btn btn-secondary" ng-click="$ctrl.doInContainer($ctrl.swarmId, container.id, 'restart')">Restart</button>
-					</span>
-					<hr/>
+				<li ng-repeat="container in $ctrl.containers | filter:$ctrl.query" ng-if="container.image.indexOf('swarm') === -1" class="thumbnail">
+					<div style="height: 100px">
+						<a href="#!/swarms/{{$ctrl.swarmId}}" class="thumb">
+							<img ng-src="images/container.png" alt="{{container.names[0]}}}" />
+						</a>
+						<span class="swarm-text text-white badge status-{{container.status}}">{{container.names[0]}}</span>
+						<span class="btn-group-sm pull-right" role="group">
+							<button type="button" class="btn btn-secondary" ng-click="$ctrl.doInContainer($ctrl.swarmId, container.id, 'start')">Start</button>
+							<button type="button" class="btn btn-secondary" ng-click="$ctrl.doInContainer($ctrl.swarmId, container.id, 'stop')">Stop</button>
+							<button type="button" class="btn btn-secondary" ng-click="$ctrl.doInContainer($ctrl.swarmId, container.id, 'restart')">Restart</button>
+						</span>
+					</div>
 					<span class="swarm-text">Image: {{container.image}}</span>
 					<div class="row">
 						<div class="col-md-12">

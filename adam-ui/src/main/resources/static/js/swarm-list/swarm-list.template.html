@@ -8,11 +8,13 @@
 		</div>
 		<div class="col-md-10">
 			<ul class="swarms">
-				<li ng-repeat="swarm in $ctrl.swarms | orderBy:'name' | filter:$ctrl.query" class="thumbnail" style="min-height: 225px">
-					<a class="thumb">
-						<img ng-src="images/swarm.png" alt="{{swarm.name}}" />
-					</a>
-					<span class="swarm-text margin-top-3em">{{swarm.name}}</span>
+				<li ng-repeat="swarm in $ctrl.swarms | orderBy:'name' | filter:$ctrl.query" class="thumbnail" >
+					<div style="height: 100px;">
+						<a class="thumb">
+							<img ng-src="images/swarm.png" alt="{{swarm.name}}" />
+						</a>
+						<span class="swarm-text margin-top-3em">{{swarm.name}}</span>
+					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<swarm-statistics ng-swarm="{{swarm.id}}"></container-statistics>

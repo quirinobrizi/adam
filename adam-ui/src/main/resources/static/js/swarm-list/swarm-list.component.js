@@ -6,19 +6,19 @@ angular
       '$window', 'Swarm', 'speechRecognition',
       function SwarmListController($window, Swarm, speechRecognition) {
         var self = this;
-        speechRecognition.addCommand("show me *tag", function(words) {
-          console.log(words);
-          var phrase = /(.*)(nodes|containers)/.exec(words);
-          if(phrase[2].match(/containers|nodes/gi)) {
-            var id = findId(phrase[1]);
-            if (phrase[2] === 'containers') {
-              $window.location.assign('#!/swarms/' + id  + '/containers')
-            } else if (phrase[2] ===  'nodes') {
-              $window.location.assign('#!/swarms/' + id + '/nodes')
-            }
-          }
-        });
-        speechRecognition.start();
+        // speechRecognition.addCommand("show me *tag", function(words) {
+        //   console.log(words);
+        //   var phrase = /(.*)(nodes|containers)/.exec(words);
+        //   if(phrase[2].match(/containers|nodes/gi)) {
+        //     var id = findId(phrase[1]);
+        //     if (phrase[2] === 'containers') {
+        //       $window.location.assign('#!/swarms/' + id  + '/containers')
+        //     } else if (phrase[2] ===  'nodes') {
+        //       $window.location.assign('#!/swarms/' + id + '/nodes')
+        //     }
+        //   }
+        // });
+        // speechRecognition.start();
         self.swarms = Swarm.swarms();
 
         var findId = function(words) {

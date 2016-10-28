@@ -1,6 +1,7 @@
 angular
   .module('adam', [
     'ngRoute',
+    'angular-growl',
     'core',
     'swarm.list',
     'swarm.nodes',
