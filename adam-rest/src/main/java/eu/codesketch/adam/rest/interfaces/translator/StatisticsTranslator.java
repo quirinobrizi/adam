@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright [2016] [Quirino Brizi (quirino.brizi@gmail.com)]
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -20,7 +20,7 @@ package eu.codesketch.adam.rest.interfaces.translator;
 
 import org.springframework.stereotype.Component;
 
-import eu.codesketch.adam.message.swarm.StatisticsMesage;
+import eu.codesketch.adam.message.swarm.StatisticsMessage;
 import eu.codesketch.adam.rest.domain.model.statistics.Statistics;
 
 /**
@@ -30,14 +30,14 @@ import eu.codesketch.adam.rest.domain.model.statistics.Statistics;
 @Component
 public class StatisticsTranslator {
 
-    public StatisticsMesage translate(Statistics statistics) {
+    public StatisticsMessage translate(Statistics statistics) {
         if (null == statistics) {
             return null;
         }
-        return new StatisticsMesage(statistics.getCpuTimePercentage(), statistics.getTotalMemory(),
+        return new StatisticsMessage(statistics.getCpuTimePercentage(), statistics.getTotalMemory(),
                 statistics.getMemoryUsage(), statistics.getContainers(), statistics.getContainersStopped(),
                 statistics.getContainersPaused(), statistics.getContainersRunning(), statistics.getNcpu(),
-                statistics.getNumberOfNodes());
+                statistics.getNumberOfNodes(), statistics.getCpuThrottledTime());
     }
 
 }

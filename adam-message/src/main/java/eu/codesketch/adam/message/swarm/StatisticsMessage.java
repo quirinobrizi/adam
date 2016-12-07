@@ -16,105 +16,113 @@
 /**
  *
  */
-package eu.codesketch.adam.rest.domain.model.statistics;
+package eu.codesketch.adam.message.swarm;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import eu.codesketch.adam.message.Message;
 
 /**
  * @author quirino
  *
  */
-public class Statistics {
+public class StatisticsMessage implements Message {
 
-    private CpuStatistics cpuStatistics;
-    private CpuStatistics preCpuStatistics;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3495211780382474077L;
 
+    @JsonProperty("cpuUsage")
+    private Float cpuUsage;
+    @JsonProperty("totalMemory")
     private Long totalMemory;
+    @JsonProperty("memoryUsage")
     private Long memoryUsage;
-
+    @JsonProperty("containers")
     private Integer containers;
+    @JsonProperty("containersStopped")
     private Integer containersStopped;
+    @JsonProperty("containersPaused")
     private Integer containersPaused;
+    @JsonProperty("containersRunning")
     private Integer containersRunning;
+    @JsonProperty("ncpu")
     private Integer ncpu;
+    @JsonProperty("numberOfNodes")
     private Integer numberOfNodes;
+    @JsonProperty("cpuThrottledTime")
+    private Integer cpuThrottledTime;
 
-    public Statistics(CpuStatistics cpuStatistics, CpuStatistics preCpuStatistics, Long totalMemory, Long memoryUsage) {
-        this.cpuStatistics = cpuStatistics;
-        this.preCpuStatistics = preCpuStatistics;
+    @JsonCreator
+    public StatisticsMessage(@JsonProperty("cpuUsage") Float cpuUsage, @JsonProperty("totalMemory") Long totalMemory,
+            @JsonProperty("memoryUsage") Long memoryUsage, @JsonProperty("containers") Integer containers,
+            @JsonProperty("containersStopped") Integer containersStopped,
+            @JsonProperty("containersPaused") Integer containersPaused,
+            @JsonProperty("containersRunning") Integer containersRunning, @JsonProperty("ncpu") Integer ncpu,
+            @JsonProperty("numberOfNodes") Integer numberOfNodes,
+            @JsonProperty("cpuThrottledTime") Integer cpuThrottledTime) {
+        this.cpuUsage = cpuUsage;
         this.totalMemory = totalMemory;
         this.memoryUsage = memoryUsage;
-        this.ncpu = this.cpuStatistics.getCpuUsage().getNumOfCpus();
-    }
-
-    public Statistics(Long totalMemory, Integer containers, Integer containersStopped, Integer containersPaused,
-            Integer containersRunning, Integer ncpu, Integer numberOfNodes) {
-        this.totalMemory = totalMemory;
         this.containers = containers;
         this.containersStopped = containersStopped;
         this.containersPaused = containersPaused;
         this.containersRunning = containersRunning;
         this.ncpu = ncpu;
         this.numberOfNodes = numberOfNodes;
+        this.cpuThrottledTime = cpuThrottledTime;
     }
 
+    @JsonIgnore
+    public Float getCpuUsage() {
+        return cpuUsage;
+    }
+
+    @JsonIgnore
     public Long getTotalMemory() {
         return totalMemory;
     }
 
-    public Integer getContainers() {
-        return containers;
-    }
-
-    public Integer getContainersPaused() {
-        return containersPaused;
-    }
-
-    public Integer getContainersRunning() {
-        return containersRunning;
-    }
-
-    public Integer getContainersStopped() {
-        return containersStopped;
-    }
-
-    public Integer getNcpu() {
-        return ncpu;
-    }
-
+    @JsonIgnore
     public Long getMemoryUsage() {
         return memoryUsage;
     }
 
+    @JsonIgnore
+    public Integer getContainers() {
+        return containers;
+    }
+
+    @JsonIgnore
+    public Integer getContainersPaused() {
+        return containersPaused;
+    }
+
+    @JsonIgnore
+    public Integer getContainersRunning() {
+        return containersRunning;
+    }
+
+    @JsonIgnore
+    public Integer getContainersStopped() {
+        return containersStopped;
+    }
+
+    @JsonIgnore
+    public Integer getNcpu() {
+        return ncpu;
+    }
+
+    @JsonIgnore
     public Integer getNumberOfNodes() {
         return numberOfNodes;
     }
 
+    @JsonIgnore
     public Integer getCpuThrottledTime() {
-        if (null != cpuStatistics) {
-            Throttling throttling = cpuStatistics.getThrottling();
-            if (null != throttling) {
-                return throttling.getThrottledTime();
-            }
-        }
-        return null;
-    }
-
-    public float getCpuTimePercentage() {
-        if (null == cpuStatistics || null == preCpuStatistics) {
-            return 0.0f;
-        }
-        Long preTotalCpuUsage = this.preCpuStatistics.getCpuUsage().getTotalUsage();
-        Long totalCpuUsage = this.cpuStatistics.getCpuUsage().getTotalUsage();
-        Long preSystemCpuUsage = this.preCpuStatistics.getSystemCpuUsage();
-        Long systemCpuUsage = this.cpuStatistics.getSystemCpuUsage();
-
-        Long cpuUsageDelta = totalCpuUsage - preTotalCpuUsage;
-        Long systemCpuDelta = systemCpuUsage - preSystemCpuUsage;
-
-        float answer = 0.0f;
-        if (systemCpuDelta > 0 && cpuUsageDelta > 0) {
-            answer = ((float) cpuUsageDelta / (float) systemCpuDelta) * this.cpuStatistics.getCpuUsage().getNumOfCpus()
-                    * 100;
-        }
-        return answer;
+        return cpuThrottledTime;
     }
 }

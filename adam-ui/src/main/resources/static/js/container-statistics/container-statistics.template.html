@@ -1,8 +1,24 @@
-<div>
-	<div class="inline-block">
-		<canvas height="100" width="150" class="chart chart-doughnut" chart-data="memoryStatistics" chart-labels="memoryLabels" chart-options="memoryOptions" chart-colors = "colors"></canvas>
+<div class="row">
+
+	<div class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
+			Memory Usage (MB)
+		</div>
+		<div class="single-number-widget-value">{{formatBytes(statistics.memoryUsage, 2)}}/{{formatBytes(statistics.totalMemory, 2)}}</div>
 	</div>
-	<div class="inline-block">
-		<canvas height="100" width="150" class="chart chart-doughnut" chart-data="cpuUsageStatistics" chart-labels="cpuLabels" chart-options="cpuOptions" chart-colors = "colors"></canvas>
+	
+	<div class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
+			CPU Usage (%)
+		</div>
+		<div class="single-number-widget-value">{{statistics.cpuUsage}}</div>
 	</div>
+	
+	<div class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
+			CPU Throttling Time (s)
+		</div>
+		<div class="single-number-widget-value">{{statistics.cpuThrottledTime}}</div>
+	</div>
+	
 </div>

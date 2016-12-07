@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright [2016] [Quirino Brizi (quirino.brizi@gmail.com)]
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -104,6 +104,11 @@ public class DockerFacade {
 
     public void events(Long since, EventsResultCallback eventsResultCallback) {
         this.dockerClient.eventsCmd().withSince(Long.toString(since)).exec(eventsResultCallback);
+    }
+
+    public List<eu.codesketch.adam.rest.domain.model.Image> getImages() {
+        List<Image> images = this.dockerClient.listImagesCmd().exec();
+        return ImageTranslator.translate(images);
     }
 
     public eu.codesketch.adam.rest.domain.model.Image getImageByName(String image) {

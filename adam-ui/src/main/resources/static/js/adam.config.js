@@ -20,11 +20,11 @@ angular.module('adam')
     Notify.connect('http://localhost:8080/adam-websocket', function() {
       Notify.subscribe('/topic/swarm/events', function(event) {
         if(event) {
-          var message = angular.fromJson(event.body)
-          if("UNKNOWN" === action) {
+          var message = angular.fromJson(event.body);
+          if("UNKNOWN" === message.action) {
             return;
           }
-          growl.warn(message.source + "    " + message.action); 
+          growl.warning(message.source + "    " + message.action); 
         }
       });
     });

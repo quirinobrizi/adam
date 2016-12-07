@@ -63,7 +63,7 @@ angular
             }).$promise.then(
               // success
               function(statistics) {
-                // $scope.statistics = statistics;
+                $scope.statistics = statistics;
                 // $scope.cpuUsageChartConfig = prepareCpuUsageChartConfig(statistics);
                 $scope.memoryStatistics = [
                   [$scope.formatBytes(statistics.memoryUsage, 2), $scope.formatBytes(statistics.totalMemory, 2)]
