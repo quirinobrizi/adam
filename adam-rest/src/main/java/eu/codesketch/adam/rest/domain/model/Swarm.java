@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- *
- */
 package eu.codesketch.adam.rest.domain.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,6 +90,10 @@ public class Swarm {
      * Client used for connecting to docker daemon
      */
     private DockerFacade dockerFacade;
+    /**
+     * The registry information
+     */
+    private Registry registry;
 
     public Swarm(SwarmId swarmId, String name, Long creationDate, Network network) {
         Validate.notNull(swarmId, "swarm identifier must be provided");
@@ -141,6 +143,10 @@ public class Swarm {
         this.key = key;
     }
 
+    public void setRegistry(Registry registry) {
+        this.registry = registry;
+    }
+
     public SSLConfig getSSLConfig() {
         if (StringUtils.isNoneBlank(certificateAuthority, key, certificate)) {
             return SSLHelper.prepareSSLConfig(certificateAuthority, key, certificate);
@@ -152,7 +158,39 @@ public class Swarm {
         return StringUtils.isNoneBlank(certificateAuthority, key, certificate);
     }
 
+    public String getRegistryUrl() {
+        if (hasRegistryDefinition()) {
+            return registry.getUrl();
+        }
+        return null;
+    }
+
+    public String getRegistryUsername() {
+        if (hasRegistryDefinition()) {
+            return registry.getUsername();
+        }
+        return null;
+    }
+
+    public String getRegistryPassword() {
+        if (hasRegistryDefinition()) {
+            return registry.getPassword();
+        }
+        return null;
+    }
+
+    public String getRegistryEmail() {
+        if (hasRegistryDefinition()) {
+            return registry.getEmail();
+        }
+        return null;
+    }
+
     // Swarm interaction methods
+
+    private boolean hasRegistryDefinition() {
+        return null != registry;
+    }
 
     public Version apiVersion() {
         if (hasDockerFacade()) {
@@ -217,6 +255,17 @@ public class Swarm {
     }
 
     // end swarm interaction method
+
+    // registry interaction methods
+
+    public List<String> getImageVersions(String imageName) {
+        if (hasDockerFacade()) {
+            Image image = this.dockerFacade.getImageByName(imageName);
+            return image.getRepoTags();
+        }
+        return new ArrayList<>();
+    }
+    // end registry interaction methods
 
     public void setDockerClient(DockerFacade dockerFacade) {
         this.dockerFacade = dockerFacade;

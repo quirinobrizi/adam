@@ -42,7 +42,6 @@ import eu.codesketch.adam.rest.domain.model.container.ContainerId;
 import eu.codesketch.adam.rest.domain.model.node.Node;
 import eu.codesketch.adam.rest.domain.model.statistics.Statistics;
 import eu.codesketch.adam.rest.interfaces.translator.ContainerTranslator;
-import eu.codesketch.adam.rest.interfaces.translator.EventTranslator;
 import eu.codesketch.adam.rest.interfaces.translator.NodeTranslator;
 import eu.codesketch.adam.rest.interfaces.translator.StatisticsTranslator;
 import eu.codesketch.adam.rest.interfaces.translator.SwarmMessageTranslator;
@@ -63,8 +62,6 @@ public class SwarmInterfaceDefault implements SwarmInterface {
     private SwarmMessageTranslator swarmMessageTranslator;
     @Autowired
     private SwarmTranslator swarmTranslator;
-    @Autowired
-    private EventTranslator eventTranslator;
     @Autowired
     private StatisticsTranslator statisticsTranslator;
     @Autowired
@@ -148,6 +145,13 @@ public class SwarmInterfaceDefault implements SwarmInterface {
         Statistics statistics = this.swarmService.containerStatistics(SwarmId.from(swarmId),
                 ContainerId.newInstance(containerId));
         return statisticsTranslator.translate(statistics);
+    }
+
+    @Override
+    public List<String> getSwarmImageVersions(@PathVariable("swarmId") @NotNull String swarmId,
+            @PathVariable("imageName") @NotNull String imageName) {
+        Swarm swarm = swarmService.getSwarm(SwarmId.from(swarmId));
+        return swarm.getImageVersions(imageName);
     }
 
 }

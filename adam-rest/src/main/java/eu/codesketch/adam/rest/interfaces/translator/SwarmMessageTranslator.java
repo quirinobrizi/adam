@@ -20,8 +20,10 @@ package eu.codesketch.adam.rest.interfaces.translator;
 
 import org.springframework.stereotype.Component;
 
+import eu.codesketch.adam.message.swarm.RegistryMessage;
 import eu.codesketch.adam.message.swarm.SwarmMessage;
 import eu.codesketch.adam.rest.domain.model.Network;
+import eu.codesketch.adam.rest.domain.model.Registry;
 import eu.codesketch.adam.rest.domain.model.Swarm;
 import eu.codesketch.adam.rest.domain.model.SwarmId;
 
@@ -40,6 +42,11 @@ public class SwarmMessageTranslator {
         answer.setCertificateAuthority(swarm.getCertificateAuthority());
         answer.setCertificate(swarm.getCertificate());
         answer.setKey(swarm.getKey());
+        if (null != swarm.getRegistry()) {
+            RegistryMessage registry = swarm.getRegistry();
+            answer.setRegistry(new Registry(registry.getUrl(), registry.getUsername(), registry.getPassword(),
+                    registry.getEmail()));
+        }
         return answer;
     }
 

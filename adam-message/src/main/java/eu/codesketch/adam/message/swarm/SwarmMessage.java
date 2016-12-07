@@ -58,24 +58,28 @@ public class SwarmMessage implements DiscoverableMessage {
     @JsonProperty("nodes")
     private List<NodeMessage> nodes;
     @JsonProperty("containers")
-    private List<ContainerMessage> containers;;
+    private List<ContainerMessage> containers;
+    @JsonProperty("registry")
+    private RegistryMessage registry;
 
     public SwarmMessage() {
     }
 
     public SwarmMessage(String id, String name) {
-        this(id, name, null, null, null);
+        this(id, name, null, null, null, null);
     }
 
     @JsonCreator
     public SwarmMessage(@JsonProperty("id") String id, @JsonProperty("name") String name,
             @JsonProperty("certificateAuthority") String certificateAuthority,
-            @JsonProperty("certificate") String certificate, @JsonProperty("key") String key) {
+            @JsonProperty("certificate") String certificate, @JsonProperty("key") String key,
+            @JsonProperty("registry") RegistryMessage registry) {
         this.id = id;
         this.name = name;
         this.certificateAuthority = certificateAuthority;
         this.certificate = certificate;
         this.key = key;
+        this.registry = registry;
     }
 
     @JsonIgnore
@@ -141,6 +145,11 @@ public class SwarmMessage implements DiscoverableMessage {
     @JsonIgnore
     public void setContainers(List<ContainerMessage> containers) {
         this.containers = containers;
+    }
+
+    @JsonIgnore
+    public RegistryMessage getRegistry() {
+        return registry;
     }
 
     /*

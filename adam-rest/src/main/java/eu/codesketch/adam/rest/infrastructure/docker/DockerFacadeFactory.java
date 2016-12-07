@@ -48,10 +48,12 @@ public class DockerFacadeFactory {
             return new DockerFacade(this.clients.get(serverUrl));
         }
         DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder().withDockerHost(serverUrl)
-                .withDockerTlsVerify(swarm.enableTlsVerify()).withCustomSslConfig(swarm.getSSLConfig()).build();
+                .withDockerTlsVerify(swarm.enableTlsVerify()).withCustomSslConfig(swarm.getSSLConfig())
+                .withRegistryUrl(swarm.getRegistryUrl()).withRegistryUsername(swarm.getRegistryUsername())
+                .withRegistryPassword(swarm.getRegistryPassword()).withRegistryEmail(swarm.getRegistryEmail()).build();
         SwarmDockerExecFactory dockerCmdExecFactory = new SwarmJerseyDockerCmdExecFactory();
-        SwarmDockerClient dockerClient = SwarmDockerClient.getInstance(config).withDockerCmdExecFactory(
-                dockerCmdExecFactory);
+        SwarmDockerClient dockerClient = SwarmDockerClient.getInstance(config)
+                .withDockerCmdExecFactory(dockerCmdExecFactory);
         this.clients.put(serverUrl, dockerClient);
         return new DockerFacade(dockerClient);
     }

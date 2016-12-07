@@ -21,7 +21,6 @@ package eu.codesketch.adam.rest.interfaces.translator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import eu.codesketch.adam.message.swarm.SwarmMessage;
@@ -35,9 +34,6 @@ import eu.codesketch.adam.rest.domain.model.Swarm;
  */
 @Component
 public class SwarmTranslator {
-
-    @Autowired
-    private StatisticsTranslator statisticsTranslator;
 
     public SwarmMessage translate(Swarm swarm) {
         SwarmMessage answer = new SwarmMessage(swarm.getSwarmId(), swarm.getName());

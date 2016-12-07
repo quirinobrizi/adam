@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
 
+import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Info;
 import com.github.dockerjava.core.command.EventsResultCallback;
 
@@ -31,6 +32,7 @@ import eu.codesketch.adam.rest.domain.model.Version;
 import eu.codesketch.adam.rest.domain.model.container.Container;
 import eu.codesketch.adam.rest.domain.model.node.Node;
 import eu.codesketch.adam.rest.infrastructure.docker.translator.ContainerTranslator;
+import eu.codesketch.adam.rest.infrastructure.docker.translator.ImageTranslator;
 import eu.codesketch.adam.rest.infrastructure.docker.translator.InfoTranslator;
 import eu.codesketch.adam.rest.infrastructure.docker.translator.NodeTranslator;
 import eu.codesketch.adam.rest.infrastructure.docker.translator.StatisticsTranslator;
@@ -102,5 +104,10 @@ public class DockerFacade {
 
     public void events(Long since, EventsResultCallback eventsResultCallback) {
         this.dockerClient.eventsCmd().withSince(Long.toString(since)).exec(eventsResultCallback);
+    }
+
+    public eu.codesketch.adam.rest.domain.model.Image getImageByName(String image) {
+        List<Image> images = this.dockerClient.listImagesCmd().withImageNameFilter(image).exec();
+        return ImageTranslator.translate(images.get(0));
     }
 }

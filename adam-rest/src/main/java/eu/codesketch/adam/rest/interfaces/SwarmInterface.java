@@ -85,4 +85,8 @@ public interface SwarmInterface {
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/statistics", method = RequestMethod.GET)
     StatisticsMesage getSwarmContainerStatistics(String swarmId, String containerId);
+
+    @ResponseStatus(code = HttpStatus.OK)
+    @RequestMapping(value = "/{swarmId}/images/{imageName}", method = RequestMethod.GET)
+    List<String> getSwarmImageVersions(String swarmId, String imageName);
 }
