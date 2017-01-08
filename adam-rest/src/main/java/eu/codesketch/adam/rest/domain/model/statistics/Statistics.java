@@ -36,17 +36,23 @@ public class Statistics {
     private Integer containersRunning;
     private Integer ncpu;
     private Integer numberOfNodes;
+    private String serverVersion;
+    private Long maxMemoryUsage;
+    private Integer failCount;
 
-    public Statistics(CpuStatistics cpuStatistics, CpuStatistics preCpuStatistics, Long totalMemory, Long memoryUsage) {
+    public Statistics(CpuStatistics cpuStatistics, CpuStatistics preCpuStatistics, Long totalMemory, Long memoryUsage,
+            Long maxMemoryUsage, Integer failCount) {
         this.cpuStatistics = cpuStatistics;
         this.preCpuStatistics = preCpuStatistics;
         this.totalMemory = totalMemory;
         this.memoryUsage = memoryUsage;
+        this.maxMemoryUsage = maxMemoryUsage;
+        this.failCount = failCount;
         this.ncpu = this.cpuStatistics.getCpuUsage().getNumOfCpus();
     }
 
     public Statistics(Long totalMemory, Integer containers, Integer containersStopped, Integer containersPaused,
-            Integer containersRunning, Integer ncpu, Integer numberOfNodes) {
+            Integer containersRunning, Integer ncpu, Integer numberOfNodes, String serverVersion) {
         this.totalMemory = totalMemory;
         this.containers = containers;
         this.containersStopped = containersStopped;
@@ -54,6 +60,7 @@ public class Statistics {
         this.containersRunning = containersRunning;
         this.ncpu = ncpu;
         this.numberOfNodes = numberOfNodes;
+        this.serverVersion = serverVersion;
     }
 
     public Long getTotalMemory() {
@@ -88,6 +95,14 @@ public class Statistics {
         return numberOfNodes;
     }
 
+    public Long getMaxMemoryUsage() {
+        return maxMemoryUsage;
+    }
+
+    public Integer getFailCount() {
+        return failCount;
+    }
+
     public float getCpuTimePercentage() {
         if (null == cpuStatistics || null == preCpuStatistics) {
             return 0.0f;
@@ -106,5 +121,9 @@ public class Statistics {
                     * 100;
         }
         return answer;
+    }
+
+    public String getServerVersion() {
+        return serverVersion;
     }
 }

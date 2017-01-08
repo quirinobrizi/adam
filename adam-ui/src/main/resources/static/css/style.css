@@ -69,9 +69,8 @@ ul li{
 }
 
 .single-number-widget-title {
-  width: 100%;
   text-align: center;
-  padding: 5px;
+  padding: 1px;
   background-color: antiquewhite;
   text-transform: uppercase;
   font-weight: bold;

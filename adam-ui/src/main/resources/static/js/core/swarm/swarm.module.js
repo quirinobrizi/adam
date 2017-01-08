@@ -14,4 +14,4 @@
  * limitations under the License.
  *******************************************************************************/
 angular
-  .module('core.swarm', ['ngResource']);
+  .module('core.swarm', ['ngResource', 'core.utils']);

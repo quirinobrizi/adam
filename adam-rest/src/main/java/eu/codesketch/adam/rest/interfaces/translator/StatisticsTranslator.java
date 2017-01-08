@@ -37,7 +37,8 @@ public class StatisticsTranslator {
         return new StatisticsMesage(statistics.getCpuTimePercentage(), statistics.getTotalMemory(),
                 statistics.getMemoryUsage(), statistics.getContainers(), statistics.getContainersStopped(),
                 statistics.getContainersPaused(), statistics.getContainersRunning(), statistics.getNcpu(),
-                statistics.getNumberOfNodes());
+                statistics.getNumberOfNodes(), statistics.getServerVersion(), statistics.getMaxMemoryUsage(),
+                statistics.getFailCount());
     }
 
 }

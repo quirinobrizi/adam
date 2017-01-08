@@ -53,6 +53,12 @@ public class StatisticsMesage implements Message {
     private Integer ncpu;
     @JsonProperty("numberOfNodes")
     private Integer numberOfNodes;
+    @JsonProperty("serverVersion")
+    private String serverVersion;
+    @JsonProperty("maxMemoryUsage")
+    private Long maxMemoryUsage;
+    @JsonProperty("failCount")
+    private Integer failCount;
 
     @JsonCreator
     public StatisticsMesage(@JsonProperty("cpuUsage") Float cpuUsage, @JsonProperty("totalMemory") Long totalMemory,
@@ -60,7 +66,8 @@ public class StatisticsMesage implements Message {
             @JsonProperty("containersStopped") Integer containersStopped,
             @JsonProperty("containersPaused") Integer containersPaused,
             @JsonProperty("containersRunning") Integer containersRunning, @JsonProperty("ncpu") Integer ncpu,
-            @JsonProperty("numberOfNodes") Integer numberOfNodes) {
+            @JsonProperty("numberOfNodes") Integer numberOfNodes, @JsonProperty("serverVersion") String serverVersion,
+            @JsonProperty("maxMemoryUsage") Long maxMemoryUsage, @JsonProperty("failCount") Integer failCount) {
         this.cpuUsage = cpuUsage;
         this.totalMemory = totalMemory;
         this.memoryUsage = memoryUsage;
@@ -70,6 +77,9 @@ public class StatisticsMesage implements Message {
         this.containersRunning = containersRunning;
         this.ncpu = ncpu;
         this.numberOfNodes = numberOfNodes;
+        this.serverVersion = serverVersion;
+        this.maxMemoryUsage = maxMemoryUsage;
+        this.failCount = failCount;
     }
 
     @JsonIgnore
@@ -115,5 +125,20 @@ public class StatisticsMesage implements Message {
     @JsonIgnore
     public Integer getNumberOfNodes() {
         return numberOfNodes;
+    }
+
+    @JsonIgnore
+    public String getServerVersion() {
+        return serverVersion;
+    }
+
+    @JsonIgnore
+    public Long getMaxMemoryUsage() {
+        return maxMemoryUsage;
+    }
+
+    @JsonIgnore
+    public Integer getFailCount() {
+        return failCount;
     }
 }

@@ -1,40 +1,39 @@
 <div class="row">
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			<a href="#!/swarms/{{swarmId}}/containers">Containers (#)</a>
+	<div ng-repeat="ds in displayStatistics" class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title">
+			<h6 data-fittext data-fittext-max="12" data-fittext-min="8" ng-bind-html="ds.name">
+			</h6>
 		</div>
-		<div class="single-number-widget-value">{{statistics.containers}}</div>
-	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			<a href="#!/swarms/{{swarmId}}/containers">Running Containers (#)</a>
+		<div class="single-number-widget-value">
+			<h6 data-fittext data-fittext-max="16" data-fittext-min="8">
+				{{utils.invoke(ds.fcn, statistics[ds.key])}}
+			</h6>
 		</div>
-		<div class="single-number-widget-value">{{statistics.containersRunning}}</div>
 	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			<a href="#!/swarms/{{swarmId}}/containers">Stopped Containers (#)</a>
-			</div>
-		<div class="single-number-widget-value">{{statistics.containersStopped}}</div>
-	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			<a href="#!/swarms/{{swarmId}}/containers">Paused Containers (#)</a>
+	<!-- 
+	
+	<div class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="12" data-fittext-min="8">
+			<h6 data-fittext data-fittext-max="12" data-fittext-min="8">
+				CPUs (#)
+			</h6>
 		</div>
-		<div class="single-number-widget-value">{{statistics.containersPaused}}</div>
-	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			<a href="#!/swarms/{{swarmId}}/nodes">Nodes (#)</a>
+		<div class="single-number-widget-value">
+			<h6 data-fittext data-fittext-max="16" data-fittext-min="8">
+				{{statistics.ncpu}}
+			</h6>
 		</div>
-		<div class="single-number-widget-value">{{statistics.numberOfNodes}}</div>
 	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">CPUs (#)</div>
-		<div class="single-number-widget-value">{{statistics.ncpu}}</div>
-	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">Total Memory (GB)</div>
-		<div class="single-number-widget-value">{{formatBytes(statistics.totalMemory, 1)}}</div>
-	</div>
+	<div class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title" data-fittext data-fittext-max="12" data-fittext-min="8">
+			<h6 data-fittext data-fittext-max="12" data-fittext-min="8">
+				Total Memory (GB)
+			</h6>
+		</div>
+		<div class="single-number-widget-value">
+			<h6 data-fittext data-fittext-max="16" data-fittext-min="8">
+				{{formatBytes(statistics.totalMemory, 1)}}
+			</h6>
+		</div>
+	</div> -->
 </div>

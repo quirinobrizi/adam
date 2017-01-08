@@ -1,8 +1,14 @@
 <div>
-	<div class="inline-block">
-		<canvas height="100" width="150" class="chart chart-doughnut" chart-data="memoryStatistics" chart-labels="memoryLabels" chart-options="memoryOptions" chart-colors = "colors"></canvas>
-	</div>
-	<div class="inline-block">
-		<canvas height="100" width="150" class="chart chart-doughnut" chart-data="cpuUsageStatistics" chart-labels="cpuLabels" chart-options="cpuOptions" chart-colors = "colors"></canvas>
+	<div ng-repeat="ds in displayStatistics" class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title">
+			<h6 data-fittext data-fittext-max="12" data-fittext-min="8">
+				{{ds.name}}
+			</h6>
+		</div>
+		<div class="single-number-widget-value">
+			<h6 data-fittext data-fittext-max="16" data-fittext-min="12">
+				{{utils.invoke(ds.fcn, statistics[ds.key])}}	
+			</h6>
+		</div>
 	</div>
 </div>

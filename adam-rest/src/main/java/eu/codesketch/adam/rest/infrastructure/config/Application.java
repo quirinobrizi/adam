@@ -43,7 +43,7 @@ import com.google.common.cache.CacheBuilder;
 public class Application {
 
     @Bean
-    public CacheManager cacheManager() {
+    CacheManager cacheManager() {
         GuavaCacheManager manager = new GuavaCacheManager("nodes", "info", "containers");
         CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES)
                 .maximumSize(25);

@@ -32,9 +32,10 @@ public class StatisticsTranslator {
     public static eu.codesketch.adam.rest.domain.model.statistics.Statistics translate(Statistics statistics) {
         Long totalMemory = statistics.getMemoryStatistics().getLimit();
         Long memoryUsage = statistics.getMemoryStatistics().getUsage();
-        return new eu.codesketch.adam.rest.domain.model.statistics.Statistics(
-                toCpuUsage(statistics.getCpuStatistics()), toCpuUsage(statistics.getPreCpuStatistics()), totalMemory,
-                memoryUsage);
+        Long maxMemoryUsage = statistics.getMemoryStatistics().getMaxUsage();
+        Integer failCount = statistics.getMemoryStatistics().getFailCount();
+        return new eu.codesketch.adam.rest.domain.model.statistics.Statistics(toCpuUsage(statistics.getCpuStatistics()),
+                toCpuUsage(statistics.getPreCpuStatistics()), totalMemory, memoryUsage, maxMemoryUsage, failCount);
     }
 
     private static CpuStatistics toCpuUsage(eu.codesketch.adam.docker.model.statistics.CpuStatistics cpuStatistics) {
@@ -42,8 +43,8 @@ public class StatisticsTranslator {
         eu.codesketch.adam.docker.model.statistics.Throttling thrott = cpuStatistics.getThrottling();
         CpuUsage cpuUsage = new CpuUsage(usage.getPerCpuUsage(), usage.getUsageInUserMode(), usage.getTotalUsage(),
                 usage.getUsageInKernelMode());
-        Throttling throttling = (null != thrott) ? new Throttling(thrott.getPeriods(), thrott.getThrottledPeriods(),
-                thrott.getThrottledTime()) : null;
+        Throttling throttling = (null != thrott)
+                ? new Throttling(thrott.getPeriods(), thrott.getThrottledPeriods(), thrott.getThrottledTime()) : null;
         return new CpuStatistics(cpuUsage, throttling, cpuStatistics.getSystemCpuUsage());
     }
 }

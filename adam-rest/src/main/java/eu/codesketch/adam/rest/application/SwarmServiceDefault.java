@@ -108,6 +108,13 @@ public class SwarmServiceDefault implements SwarmService {
     }
 
     @Override
+    public Swarm removeContainer(SwarmId swarmId, ContainerId containerId) {
+        Swarm swarm = this.getSwarm(swarmId);
+        swarm.removeContainer(containerId);
+        return swarm;
+    }
+
+    @Override
     public Statistics containerStatistics(SwarmId swarmId, ContainerId containerId) {
         Swarm swarm = this.getSwarm(swarmId);
         return swarm.containerStatistics(containerId);

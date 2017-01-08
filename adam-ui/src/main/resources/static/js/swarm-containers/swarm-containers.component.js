@@ -33,6 +33,13 @@ angular
             action: action
           });
         };
+        
+        self.removeContainer = function(swarmId, containerId) {
+          self.swarm = Swarm.removeContainer({
+            swarmId: swarmId,
+            containerId: containerId
+          });
+        }
       }
     ]
   });

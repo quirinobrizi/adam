@@ -83,10 +83,14 @@ public interface SwarmInterface {
     SwarmMessage stopSwarmContainer(String swarmId, String containerId);
 
     @ResponseStatus(code = HttpStatus.OK)
+    @RequestMapping(value = "/{swarmId}/containers/{containerId}", method = RequestMethod.DELETE)
+    SwarmMessage removeSwarmContainer(String swarmId, String containerId);
+
+    @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/statistics", method = RequestMethod.GET)
     StatisticsMesage getSwarmContainerStatistics(String swarmId, String containerId);
 
     @ResponseStatus(code = HttpStatus.OK)
-    @RequestMapping(value = "/{swarmId}/images/{imageName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{swarmId}/images", method = RequestMethod.GET)
     List<String> getSwarmImageVersions(String swarmId, String imageName);
 }

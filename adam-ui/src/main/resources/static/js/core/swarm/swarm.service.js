@@ -53,6 +53,13 @@ angular
           },
           isArray: true
         },
+        removeContainer: {
+          method: 'DELETE',
+          url: 'swarms/:swarmId/containers/:containerId',
+          headers: {
+            'Authorization': 'Basic bGlnaHRob3VzZTpsaWdodGhvdXNl'
+          }
+        },
         doInContainer: {
           method: 'PUT',
           url: 'swarms/:swarmId/containers/:containerId/:action',

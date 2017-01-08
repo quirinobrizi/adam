@@ -1,14 +1,13 @@
 <div class="row">
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			Docker Version
+	<div ng-repeat="ds in displayStatistics" class="col-md-2 single-number-widget">
+		<div class="single-number-widget-title">
+			<h6 data-fittext data-fittext-max="12" data-fittext-min="8" ng-bind-html="ds.name">
+			</h6>
 		</div>
-		<div class="single-number-widget-value">{{dockerVersion}}</div>
-	</div>
-	<div class="col-md-1 single-number-widget">
-		<div class="single-number-widget-title" data-fittext data-fittext-max="10" data-fittext-min="1">
-			<a href="#!/swarms/{{swarmId}}/containers">Running Containers (#)</a>
+		<div class="single-number-widget-value">
+			<h6 data-fittext data-fittext-max="16" data-fittext-min="8">
+				{{utils.invoke(ds.fcn, statistics[ds.key])}}
+			</h6>
 		</div>
-		<div class="single-number-widget-value">{{runningContainers}}</div>
 	</div>
 </div>

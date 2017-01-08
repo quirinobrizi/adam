@@ -20,6 +20,7 @@ package eu.codesketch.adam.ui.infrastructure.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -32,6 +33,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 @Configuration
 @EnableAutoConfiguration
 @EnableWebSocketMessageBroker
+@EnableConfigurationProperties
 @ComponentScan(basePackages = { "eu.codesketch.adam.ui" })
 @Import({ eu.codesketch.adam.rest.infrastructure.config.Application.class,
         eu.codesketch.adam.monitoring.infrastructure.config.Application.class, WebSocketConfig.class })

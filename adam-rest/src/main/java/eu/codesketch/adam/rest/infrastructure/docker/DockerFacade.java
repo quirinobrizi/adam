@@ -27,6 +27,7 @@ import com.github.dockerjava.api.model.Info;
 import com.github.dockerjava.core.command.EventsResultCallback;
 
 import eu.codesketch.adam.docker.client.SwarmDockerClient;
+import eu.codesketch.adam.docker.client.registry.RegistryClient;
 import eu.codesketch.adam.docker.model.statistics.Statistics;
 import eu.codesketch.adam.rest.domain.model.Version;
 import eu.codesketch.adam.rest.domain.model.container.Container;
@@ -44,9 +45,11 @@ import eu.codesketch.adam.rest.infrastructure.docker.translator.StatisticsTransl
 public class DockerFacade {
 
     private SwarmDockerClient dockerClient;
+    private final RegistryClient registryClient;
 
-    public DockerFacade(SwarmDockerClient dockerClient) {
+    public DockerFacade(SwarmDockerClient dockerClient, RegistryClient registryClient) {
         this.dockerClient = dockerClient;
+        this.registryClient = registryClient;
     }
 
     public Version apiVersion() {
@@ -96,7 +99,11 @@ public class DockerFacade {
         this.dockerClient.stopContainerCmd(containerId).exec();
     }
 
-    @Cacheable
+    public void removeContainer(String containerId) {
+        this.dockerClient.removeContainerCmd(containerId).exec();
+    }
+
+    @Cacheable("statistics")
     public eu.codesketch.adam.rest.domain.model.statistics.Statistics containerStats(String containerId) {
         Statistics statistics = this.dockerClient.statisticsCommand(containerId).exec();
         return StatisticsTranslator.translate(statistics);
@@ -110,4 +117,10 @@ public class DockerFacade {
         List<Image> images = this.dockerClient.listImagesCmd().withImageNameFilter(image).exec();
         return ImageTranslator.translate(images.get(0));
     }
+
+    public List<String> getAvailableImageTags(String imageName) {
+        eu.codesketch.adam.docker.model.registry.Image image = this.registryClient.listImageTagsCmd(imageName).exec();
+        return image.getTags();
+    }
+
 }

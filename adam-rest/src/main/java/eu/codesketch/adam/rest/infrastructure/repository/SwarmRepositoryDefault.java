@@ -19,10 +19,13 @@
 package eu.codesketch.adam.rest.infrastructure.repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
+import javax.annotation.PostConstruct;
+
+import org.mapdb.DB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +33,8 @@ import eu.codesketch.adam.rest.domain.model.Swarm;
 import eu.codesketch.adam.rest.domain.model.SwarmId;
 import eu.codesketch.adam.rest.domain.repository.SwarmRepository;
 import eu.codesketch.adam.rest.infrastructure.docker.DockerFacadeFactory;
+import eu.codesketch.adam.rest.infrastructure.repository.model.SwarmStorable;
+import eu.codesketch.adam.rest.infrastructure.repository.translator.SwarmStorableTranslator;
 
 /**
  * Default implementation of {@link SwarmRepository}
@@ -40,10 +45,22 @@ import eu.codesketch.adam.rest.infrastructure.docker.DockerFacadeFactory;
 @Repository
 public class SwarmRepositoryDefault implements SwarmRepository {
 
-    private Map<String, Swarm> swarms = new HashMap<>();
+    // private Map<String, Swarm> swarms = new HashMap<>();
 
     @Autowired
     private DockerFacadeFactory dockerClientFactory;
+    @Autowired
+    private DB db;
+    @Autowired
+    private SwarmStorableTranslator swarmTranslator;
+
+    private ConcurrentMap<String, SwarmStorable> swarms;
+
+    @SuppressWarnings("unchecked")
+    @PostConstruct
+    public void init() {
+        this.swarms = (ConcurrentMap<String, SwarmStorable>) db.hashMap("swarms").createOrOpen();
+    }
 
     /*
      * (non-Javadoc)
@@ -53,12 +70,14 @@ public class SwarmRepositoryDefault implements SwarmRepository {
      */
     @Override
     public void add(Swarm swarm) {
-        swarms.put(swarm.getSwarmId(), swarm);
+        SwarmStorable storable = swarmTranslator.translate(swarm);
+        swarms.put(swarm.getSwarmId(), storable);
     }
 
     @Override
     public Swarm get(SwarmId swarmId) {
-        Swarm swarm = swarms.get(swarmId.toString());
+        SwarmStorable storable = swarms.get(swarmId.toString());
+        Swarm swarm = swarmTranslator.translate(storable);
         if (null != swarm && !swarm.hasDockerFacade()) {
             swarm.setDockerClient(dockerClientFactory.createNewClient(swarm));
         }
@@ -68,10 +87,12 @@ public class SwarmRepositoryDefault implements SwarmRepository {
     @Override
     public List<Swarm> getAll() {
         List<Swarm> answer = new ArrayList<>();
-        for (Swarm swarm : swarms.values()) {
-            if (null == swarm) {
+        Collection<SwarmStorable> storables = swarms.values();
+        for (SwarmStorable storable : storables) {
+            if (null == storable) {
                 continue;
             }
+            Swarm swarm = swarmTranslator.translate(storable);
             if (!swarm.hasDockerFacade()) {
                 swarm.setDockerClient(dockerClientFactory.createNewClient(swarm));
             }

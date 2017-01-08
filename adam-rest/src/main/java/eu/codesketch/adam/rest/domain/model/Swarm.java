@@ -119,6 +119,18 @@ public class Swarm {
         return creationDate;
     }
 
+    public String getCertificate() {
+        return certificate;
+    }
+
+    public String getCertificateAuthority() {
+        return certificateAuthority;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
     public void addInstance(Node instance) {
         this.instances.add(instance);
     }
@@ -129,6 +141,18 @@ public class Swarm {
 
     public String getServerUrl() {
         return this.network.getMasterServerUrl();
+    }
+
+    public String getServerIpAddress() {
+        return this.network.getIpAddress();
+    }
+
+    public Integer getServerMasterPort() {
+        return this.network.getMasterPort();
+    }
+
+    public Integer getServerNodePort() {
+        return this.network.getNodePort();
     }
 
     public void setCertificateAuthority(String certificateAuthority) {
@@ -218,7 +242,8 @@ public class Swarm {
             Info info = this.dockerFacade.info();
             List<Node> nodes = nodes();
             return new Statistics(info.getMemTotal(), info.getContainers(), info.getContainersStopped(),
-                    info.getContainersPaused(), info.getContainersRunning(), info.getNcpu(), nodes.size());
+                    info.getContainersPaused(), info.getContainersRunning(), info.getNcpu(), nodes.size(),
+                    info.getServerVersion());
         }
         return null;
     }
@@ -241,6 +266,12 @@ public class Swarm {
         }
     }
 
+    public void removeContainer(ContainerId containerId) {
+        if (hasDockerFacade()) {
+            this.dockerFacade.removeContainer(containerId.toString());
+        }
+    }
+
     public Statistics containerStatistics(ContainerId containerId) {
         if (hasDockerFacade()) {
             return this.dockerFacade.containerStats(containerId.toString());
@@ -260,8 +291,7 @@ public class Swarm {
 
     public List<String> getImageVersions(String imageName) {
         if (hasDockerFacade()) {
-            Image image = this.dockerFacade.getImageByName(imageName);
-            return image.getRepoTags();
+            return this.dockerFacade.getAvailableImageTags(imageName);
         }
         return new ArrayList<>();
     }

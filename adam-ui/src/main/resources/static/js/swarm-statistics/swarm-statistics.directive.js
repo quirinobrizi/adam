@@ -23,12 +23,24 @@ angular
       },
       templateUrl: 'js/swarm-statistics/swarm-statistics.template.html',
       controller: [
-        '$scope', 'Swarm',
-        function SwarmStatisticsController($scope, Swarm) {
-          $scope.getSwarmStatistics = function(swarm) {
-            $scope.swarmId = swarm;
+        '$scope', 'Swarm', 'Utils', '$sce',
+        function SwarmStatisticsController($scope, Swarm, Utils, $sce) {
+          $scope.utils = Utils;
+          $scope.getSwarmStatistics = function(swarmId) { 
+            $scope.displayStatistics = [ 
+              {"key":'serverVersion', "name": $sce.trustAsHtml('Server Version'), "fcn": "noop"},
+              {"key":'containers', "name": $sce.trustAsHtml('<a href="#!/swarms/'+swarmId+'/containers">Containers</a>'), "fcn": "noop"}, 
+              {"key":'containersRunning', "name": $sce.trustAsHtml('<a href="#!/swarms/'+swarmId+'/containers">Running Containers</a>'), "fcn": "noop"}, 
+              {"key":'containersStopped', "name": $sce.trustAsHtml('<a href="#!/swarms/'+swarmId+'/containers">Stopped Containers</a>'), "fcn": "noop"}, 
+              {"key":'containersPaused', "name": $sce.trustAsHtml('<a href="#!/swarms/'+swarmId+'/containers">Paused Containers</a>'), "fcn": "noop"}, 
+              {"key":'numberOfNodes', "name": $sce.trustAsHtml('<a href="#!/swarms/'+swarmId+'/nodes">Nodes</a>'), "fcn": "noop"},
+              {"key":'ncpu', "name": $sce.trustAsHtml('CPUs'), "fcn": "noop"}, 
+              {"key":'totalMemory', "name": $sce.trustAsHtml('Total Memory'), "fcn": "formatBytes"},
+//              {"key":'memoryUsage', "name": $sce.trustAsHtml('Memory in Use'), "fcn": "formatBytes"}
+            ]
+            $scope.swarmId = swarmId;
             $scope.statistics = Swarm.getSwarmStatistics({
-              swarmId: swarm
+              swarmId: swarmId
             });
           };
 

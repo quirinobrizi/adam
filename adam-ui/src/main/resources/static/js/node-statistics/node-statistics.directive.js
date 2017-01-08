@@ -25,11 +25,14 @@ angular
       },
       templateUrl: 'js/node-statistics/node-statistics.template.html',
       controller: [
-        '$scope',
-        function SwarmStatisticsController($scope) {
+        '$scope', 'Utils', '$sce',
+        function SwarmStatisticsController($scope, Utils, $sce) {
+          $scope.utils = Utils;
           $scope.init = function(dockerVersion, runningContainers, swarmId) {
-            $scope.dockerVersion = dockerVersion;
-            $scope.runningContainers = runningContainers;
+            $scope.displayStatistics = [ 
+              {"key":'dockerVersion', "name": $sce.trustAsHtml("Docker Version"), "fcn": "noop"}, 
+              {"key":'runningContainers', "name": $sce.trustAsHtml('<a href="#!/swarms/'+swarmId+'/containers">Running Containers</a>'), "fcn": "noop"} ]
+            $scope.statistics = {'dockerVersion': dockerVersion, 'runningContainers': runningContainers};
             $scope.swarmId = swarmId;
           };
         }

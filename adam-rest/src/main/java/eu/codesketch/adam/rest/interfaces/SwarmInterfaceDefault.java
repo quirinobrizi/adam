@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import eu.codesketch.adam.message.swarm.ContainerMessage;
@@ -140,6 +141,13 @@ public class SwarmInterfaceDefault implements SwarmInterface {
     }
 
     @Override
+    public SwarmMessage removeSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
+            @PathVariable("containerId") @NotNull String containerId) {
+        Swarm swarm = this.swarmService.removeContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
+        return swarmTranslator.translate(swarm);
+    }
+
+    @Override
     public StatisticsMesage getSwarmContainerStatistics(@PathVariable("swarmId") @NotNull String swarmId,
             @PathVariable("containerId") @NotNull String containerId) {
         Statistics statistics = this.swarmService.containerStatistics(SwarmId.from(swarmId),
@@ -149,7 +157,7 @@ public class SwarmInterfaceDefault implements SwarmInterface {
 
     @Override
     public List<String> getSwarmImageVersions(@PathVariable("swarmId") @NotNull String swarmId,
-            @PathVariable("imageName") @NotNull String imageName) {
+            @RequestParam("image") @NotNull String imageName) {
         Swarm swarm = swarmService.getSwarm(SwarmId.from(swarmId));
         return swarm.getImageVersions(imageName);
     }

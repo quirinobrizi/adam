@@ -38,6 +38,7 @@ public class InfoTranslator {
         .withImages(info.getImages())
         .withMemTotal(info.getMemTotal())
         .withNcpu(info.getNCPU())
+        .withServerVersion(info.getServerVersion())
         .build();
         // @formatter:on
     }

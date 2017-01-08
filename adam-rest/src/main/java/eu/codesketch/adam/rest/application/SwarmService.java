@@ -72,6 +72,8 @@ public interface SwarmService {
 
     Swarm stopContainer(SwarmId swarmId, ContainerId containerId);
 
+    Swarm removeContainer(SwarmId swarmId, ContainerId containerId);
+
     Statistics containerStatistics(SwarmId swarmId, ContainerId containerId);
 
     List<Node> getNodesOnSwarm(SwarmId swarmId);
@@ -79,4 +81,5 @@ public interface SwarmService {
     List<Container> getContainersOnSwarm(SwarmId swarmId);
 
     Statistics getSwarmStatistics(SwarmId swarmId);
+
 }
