@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright [2016] [Quirino Brizi (quirino.brizi@gmail.com)]
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import eu.codesketch.adam.message.swarm.ContainerMessage;
 import eu.codesketch.adam.message.swarm.NodeMessage;
-import eu.codesketch.adam.message.swarm.StatisticsMesage;
+import eu.codesketch.adam.message.swarm.StatisticsMessage;
 import eu.codesketch.adam.message.swarm.SwarmMessage;
 import eu.codesketch.adam.message.swarm.request.CreateSwarmRequestMessage;
 import eu.codesketch.adam.message.swarm.response.CreatedSwarmResponseMessage;
@@ -114,7 +114,7 @@ public class SwarmInterfaceDefault implements SwarmInterface {
     }
 
     @Override
-    public StatisticsMesage getSwarmStatistics(@PathVariable("swarmId") String swarmId) {
+    public StatisticsMessage getSwarmStatistics(@PathVariable("swarmId") String swarmId) {
         Statistics statistics = this.swarmService.getSwarmStatistics(SwarmId.from(swarmId));
         return statisticsTranslator.translate(statistics);
     }
@@ -148,11 +148,17 @@ public class SwarmInterfaceDefault implements SwarmInterface {
     }
 
     @Override
-    public StatisticsMesage getSwarmContainerStatistics(@PathVariable("swarmId") @NotNull String swarmId,
+    public StatisticsMessage getSwarmContainerStatistics(@PathVariable("swarmId") @NotNull String swarmId,
             @PathVariable("containerId") @NotNull String containerId) {
         Statistics statistics = this.swarmService.containerStatistics(SwarmId.from(swarmId),
                 ContainerId.newInstance(containerId));
         return statisticsTranslator.translate(statistics);
+    }
+
+    @Override
+    public List<String> getSwarmImages(@PathVariable("swarmId") @NotNull String swarmId) {
+        Swarm swarm = swarmService.getSwarm(SwarmId.from(swarmId));
+        return swarm.getImages();
     }
 
     @Override

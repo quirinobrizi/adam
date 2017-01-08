@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright [2016] [Quirino Brizi (quirino.brizi@gmail.com)]
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import eu.codesketch.adam.message.swarm.ContainerMessage;
 import eu.codesketch.adam.message.swarm.NodeMessage;
-import eu.codesketch.adam.message.swarm.StatisticsMesage;
+import eu.codesketch.adam.message.swarm.StatisticsMessage;
 import eu.codesketch.adam.message.swarm.SwarmMessage;
 import eu.codesketch.adam.message.swarm.request.CreateSwarmRequestMessage;
 import eu.codesketch.adam.message.swarm.response.CreatedSwarmResponseMessage;
@@ -68,7 +68,7 @@ public interface SwarmInterface {
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/statistics", method = RequestMethod.GET)
-    StatisticsMesage getSwarmStatistics(String swarmId);
+    StatisticsMessage getSwarmStatistics(String swarmId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/restart", method = RequestMethod.PUT)
@@ -88,7 +88,11 @@ public interface SwarmInterface {
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/statistics", method = RequestMethod.GET)
-    StatisticsMesage getSwarmContainerStatistics(String swarmId, String containerId);
+    StatisticsMessage getSwarmContainerStatistics(String swarmId, String containerId);
+
+    @ResponseStatus(code = HttpStatus.OK)
+    @RequestMapping(value = "/{swarmId}/images", method = RequestMethod.GET)
+    List<String> getSwarmImages(String swarmId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/images", method = RequestMethod.GET)

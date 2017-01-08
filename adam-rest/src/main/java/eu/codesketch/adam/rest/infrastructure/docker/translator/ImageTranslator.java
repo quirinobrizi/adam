@@ -15,6 +15,9 @@
  */
 package eu.codesketch.adam.rest.infrastructure.docker.translator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eu.codesketch.adam.rest.domain.model.Image;
 
 /**
@@ -29,5 +32,17 @@ public abstract class ImageTranslator {
         }
         return new Image(image.getCreated(), image.getId(), image.getParentId(), image.getSize(),
                 image.getVirtualSize(), image.getRepoTags());
+    }
+
+    public static List<eu.codesketch.adam.rest.domain.model.Image> translate(
+            List<com.github.dockerjava.api.model.Image> images) {
+        if (null == images) {
+            return null;
+        }
+        List<eu.codesketch.adam.rest.domain.model.Image> answer = new ArrayList<Image>();
+        for (com.github.dockerjava.api.model.Image image : images) {
+            answer.add(translate(image));
+        }
+        return answer;
     }
 }

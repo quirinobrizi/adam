@@ -45,12 +45,12 @@ public class ContainerMessage implements Message {
     @JsonProperty("status")
     private String status;
     @JsonProperty("statistics")
-    private StatisticsMesage statistics;
+    private StatisticsMessage statistics;
 
     @JsonCreator
     public ContainerMessage(@JsonProperty("id") String id, @JsonProperty("names") List<String> names,
             @JsonProperty("image") String image, @JsonProperty("created") Long created,
-            @JsonProperty("status") String status, @JsonProperty("statistics") StatisticsMesage statistics) {
+            @JsonProperty("status") String status, @JsonProperty("statistics") StatisticsMessage statistics) {
         this.id = id;
         this.names = names;
         this.image = image;
@@ -85,7 +85,7 @@ public class ContainerMessage implements Message {
     }
 
     @JsonIgnore
-    public StatisticsMesage getStatistics() {
+    public StatisticsMessage getStatistics() {
         return statistics;
     }
 }
