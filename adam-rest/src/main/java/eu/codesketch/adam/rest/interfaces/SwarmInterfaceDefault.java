@@ -120,31 +120,31 @@ public class SwarmInterfaceDefault implements SwarmInterface {
     }
 
     @Override
-    public SwarmMessage restartSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
+    public List<ContainerMessage> restartSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
             @PathVariable("containerId") @NotNull String containerId) {
-        Swarm swarm = this.swarmService.restartContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
-        return swarmTranslator.translate(swarm);
+        this.swarmService.restartContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
+        return getSwarmContainers(swarmId);
     }
 
     @Override
-    public SwarmMessage startSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
+    public List<ContainerMessage> startSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
             @PathVariable("containerId") @NotNull String containerId) {
-        Swarm swarm = this.swarmService.startContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
-        return swarmTranslator.translate(swarm);
+        this.swarmService.startContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
+        return getSwarmContainers(swarmId);
     }
 
     @Override
-    public SwarmMessage stopSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
+    public List<ContainerMessage> stopSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
             @PathVariable("containerId") @NotNull String containerId) {
-        Swarm swarm = this.swarmService.stopContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
-        return swarmTranslator.translate(swarm);
+        this.swarmService.stopContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
+        return getSwarmContainers(swarmId);
     }
 
     @Override
-    public SwarmMessage removeSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
+    public List<ContainerMessage> removeSwarmContainer(@PathVariable("swarmId") @NotNull String swarmId,
             @PathVariable("containerId") @NotNull String containerId) {
-        Swarm swarm = this.swarmService.removeContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
-        return swarmTranslator.translate(swarm);
+        this.swarmService.removeContainer(SwarmId.from(swarmId), ContainerId.newInstance(containerId));
+        return getSwarmContainers(swarmId);
     }
 
     @Override
@@ -153,12 +153,6 @@ public class SwarmInterfaceDefault implements SwarmInterface {
         Statistics statistics = this.swarmService.containerStatistics(SwarmId.from(swarmId),
                 ContainerId.newInstance(containerId));
         return statisticsTranslator.translate(statistics);
-    }
-
-    @Override
-    public List<String> getSwarmImages(@PathVariable("swarmId") @NotNull String swarmId) {
-        Swarm swarm = swarmService.getSwarm(SwarmId.from(swarmId));
-        return swarm.getImages();
     }
 
     @Override

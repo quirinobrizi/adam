@@ -27,17 +27,21 @@ angular
         });
 
         self.doInContainer = function(swarmId, containerId, action) {
-          self.swarm = Swarm.doInContainer({
+          Swarm.doInContainer({
             swarmId: swarmId,
             containerId: containerId,
             action: action
+          }).$promise.then(function(resp) {
+            self.containers = resp;
           });
         };
         
         self.removeContainer = function(swarmId, containerId) {
-          self.swarm = Swarm.removeContainer({
+          Swarm.removeContainer({
             swarmId: swarmId,
             containerId: containerId
+          }).$promise.then(function(resp) {
+            self.containers = resp;
           });
         }
       }

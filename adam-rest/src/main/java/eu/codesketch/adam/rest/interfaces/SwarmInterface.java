@@ -72,27 +72,23 @@ public interface SwarmInterface {
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/restart", method = RequestMethod.PUT)
-    SwarmMessage restartSwarmContainer(String swarmId, String containerId);
+    List<ContainerMessage> restartSwarmContainer(String swarmId, String containerId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/start", method = RequestMethod.PUT)
-    SwarmMessage startSwarmContainer(String swarmId, String containerId);
+    List<ContainerMessage> startSwarmContainer(String swarmId, String containerId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/stop", method = RequestMethod.PUT)
-    SwarmMessage stopSwarmContainer(String swarmId, String containerId);
+    List<ContainerMessage> stopSwarmContainer(String swarmId, String containerId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}", method = RequestMethod.DELETE)
-    SwarmMessage removeSwarmContainer(String swarmId, String containerId);
+    List<ContainerMessage> removeSwarmContainer(String swarmId, String containerId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/containers/{containerId}/statistics", method = RequestMethod.GET)
     StatisticsMessage getSwarmContainerStatistics(String swarmId, String containerId);
-
-    @ResponseStatus(code = HttpStatus.OK)
-    @RequestMapping(value = "/{swarmId}/images", method = RequestMethod.GET)
-    List<String> getSwarmImages(String swarmId);
 
     @ResponseStatus(code = HttpStatus.OK)
     @RequestMapping(value = "/{swarmId}/images", method = RequestMethod.GET)

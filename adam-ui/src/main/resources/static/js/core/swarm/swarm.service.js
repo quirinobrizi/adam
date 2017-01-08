@@ -58,7 +58,8 @@ angular
           url: 'swarms/:swarmId/containers/:containerId',
           headers: {
             'Authorization': 'Basic bGlnaHRob3VzZTpsaWdodGhvdXNl'
-          }
+          },
+          isArray: true
         },
         doInContainer: {
           method: 'PUT',
@@ -70,7 +71,8 @@ angular
           },
           headers: {
             'Authorization': 'Basic bGlnaHRob3VzZTpsaWdodGhvdXNl'
-          }
+          },
+          isArray: true
         },
         getContainerStatistics: {
           method: 'GET',

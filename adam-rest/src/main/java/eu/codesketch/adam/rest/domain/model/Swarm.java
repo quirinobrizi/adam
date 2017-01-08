@@ -296,19 +296,6 @@ public class Swarm {
         return new ArrayList<>();
     }
 
-    public List<String> getImages() {
-        List<String> answer = new ArrayList<String>();
-        if (hasDockerFacade()) {
-            List<Image> images = this.dockerFacade.getImages();
-            if (images != null) {
-                for (Image image : images) {
-                    answer.add(image.getId());
-                }
-            }
-        }
-        return answer;
-    }
-
     // end registry interaction methods
 
     public void setDockerClient(DockerFacade dockerFacade) {
